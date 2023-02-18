@@ -12,8 +12,8 @@ public class Couple {
     private boolean breedable;
 
     public Couple(){
-        numberOfCouples += 1;
-        numberOfBreedableCouples += 1;
+        numberOfCouples++;
+        numberOfBreedableCouples++;
         coupleID = numberOfCouples;
         children = new ArrayList<>();
         breedable = true;
@@ -38,7 +38,7 @@ public class Couple {
         children.add(newchild);
         if (sex == "female" && breedable) { // && breedable is redundant but used as a safety precautionn
             breedable = false;
-            numberOfBreedableCouples -= 1;
+            numberOfBreedableCouples--;
         }
         System.out.printf("Couple %3d had a %4s  (%d girls, %d boys)\n", coupleID, newchild.getGender(), getNumberofGirls(), getNumberofBoys());
 

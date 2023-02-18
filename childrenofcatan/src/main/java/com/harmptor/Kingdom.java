@@ -15,7 +15,7 @@ public class Kingdom {
         }
     }
 
-    public boolean breed(){
+    public boolean simulateYear(){
         System.out.printf("\nYear %d: \n", ++currentYear);
 
         // This stream breeds and saves the amount of executions in breedCount
@@ -25,7 +25,7 @@ public class Kingdom {
             .count();
 
         if (breedCount == 0) printResults(); // Prints results if there wasn't any progress, aka after the last execution
-        return breedCount>0; // this results in the boolean which indicates whether the while loop in App.j should continue or not
+        return breedCount > 0; // if true, keeps the while-loop in App.j running
     }
 
     private void printResults(){        
@@ -36,7 +36,7 @@ public class Kingdom {
         int totalBoys = couples.stream()
             .mapToInt(couple -> (int) couple.getNumberofBoys())
             .sum();
-        System.out.printf("Total girls: %d \nTotal boys: %d\n\n", totalGirls, totalBoys);
+        System.out.printf("Total girls: %d \nTotal boys: %d\nRatio girls to boys: %f\n\n", totalGirls, totalBoys, (float)totalGirls/totalBoys);
     }
 
 }
