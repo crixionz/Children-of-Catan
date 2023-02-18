@@ -15,20 +15,32 @@ public class Kingdom {
         }
     }
 
+    /**
+     * @return true if at least one child was born
+     */
     public boolean simulateYear(){
         System.out.printf("\nYear %d: \n", ++currentYear);
 
-        // This stream breeds and saves the amount of executions in breedCount
-        long breedCount = couples.stream()
+        // This stream breeds all couples and collects a copy of the newborn children in thisYearsChildren
+        List<Child> thisYearsChildren = couples.stream()
             .filter(couple -> couple.isSubmissiveAndBreedable())
-            .map(couple -> {couple.breed(); return couple;}) // executes .breed() on each couple but keeps stream alive by returning the couple
-            .count();
-
-        if (breedCount == 0) printResults(); // Prints results if there wasn't any progress, aka after the last execution
-        return breedCount > 0; // if true, keeps the while-loop in App.j running
+            .map(couple -> couple.breed()) // .breed() returns the new child
+            .toList();
+        printResults(thisYearsChildren);
+        return thisYearsChildren.size() > 0; // a 'false' breaks the while-loop in App.j 
     }
 
-    private void printResults(){        
+    private void printResults(List<Child> thisYearsChildren){ 
+        int breedCount = thisYearsChildren.size();
+        long thisYearsGirls = thisYearsChildren.stream().filter(child -> child instanceof Girl).count();
+        long thisYearsBoys = thisYearsChildren.stream().filter(child -> child instanceof Boy).count();
+        String unequal = (thisYearsBoys!=thisYearsGirls)?"---------- UNEQUAL NUMBER OF GIRLS TO BOYS ----------":"";
+        
+        if (breedCount > 0) {
+            System.out.printf("= %d couples had a total of %2d girls and %2d boys %s \n", breedCount, thisYearsGirls, thisYearsBoys, unequal);
+            return;
+        }
+
         System.out.printf("Pussyo, we done ye? Aigh chief lookat dat brudda:\n");
         int totalGirls = couples.stream()
             .mapToInt(couple -> (int) couple.getNumberofGirls())

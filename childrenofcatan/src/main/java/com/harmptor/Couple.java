@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Couple {
 
+    protected static boolean verbose = true;
     private static int numberOfCouples = 0;
     private static int numberOfBreedableCouples = 0;
     private final int coupleID;
@@ -20,36 +21,40 @@ public class Couple {
         // System.out.printf("Created new couple: %d \n", coupleID);
     }
 
-    public void breed(){
+    /**
+     * requires couple.breedable == true;
+     * @return The newborn child of this couple
+     */
+    public Child breed(){
         if (!breedable) {
-            System.out.printf("Couple %3d cannot breed any more (%d girls, %d boys) \n", coupleID, getNumberofGirls(), getNumberofBoys());
-            return;
+            System.out.printf("ERROR: Couple %3d cannot breed any more (%d girls, %d boys) \n", coupleID, getNumberofGirls(), getNumberofBoys());
+            return null;
         }
-        
+        Child newchild;
         if (coupleID <= numberOfBreedableCouples/2){
-            breed("male");
+            newchild = breed("male");
         } else {
-            breed("female");
+            newchild = breed("female");
         }
+        return newchild;
 
     }
-    private void breed(String sex){
+    private Child breed(String sex){
         final Child newchild = Child.create(sex);
         children.add(newchild);
         if (sex == "female" && breedable) { // && breedable is redundant but used as a safety precautionn
             breedable = false;
             numberOfBreedableCouples--;
         }
-        System.out.printf("Couple %3d had a %4s  (%d girls, %d boys)\n", coupleID, newchild.getGender(), getNumberofGirls(), getNumberofBoys());
+        if (verbose) {
+            System.out.printf("Couple %3d had a %4s : (%d girls, %d boys)\n", coupleID, newchild.getGender(), getNumberofGirls(), getNumberofBoys());
+        }
+        return newchild;
 
     }
 
     public boolean isSubmissiveAndBreedable(){
         return breedable?true:false;
-    }
-
-    public void printChildren(){
-        System.out.printf("Couple %3d has: %d girls, %d boys \n", coupleID, getNumberofGirls(), getNumberofBoys());
     }
 
     public long getNumberofGirls(){
