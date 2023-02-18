@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Kingdom {
-    private List<Couple> couples;
     private static int currentYear;
+    private List<Couple> couples;
     
     public Kingdom(int amountOfCouples){
         currentYear = 0;
@@ -21,13 +21,14 @@ public class Kingdom {
     public boolean simulateYear(){
         System.out.printf("\nYear %d: \n", ++currentYear);
 
-        // This stream breeds all couples and collects a copy of the newborn children in thisYearsChildren
+        // This stream breeds all couples and collects copies of the newborn children in thisYearsChildren
         List<Child> thisYearsChildren = couples.stream()
             .filter(couple -> couple.isSubmissiveAndBreedable())
-            .map(couple -> couple.breed()) // .breed() returns the new child
+            .map(couple -> couple.breed())
+            .filter(child -> child != null)
             .toList();
         printResults(thisYearsChildren);
-        return thisYearsChildren.size() > 0; // a 'false' breaks the while-loop in App.j 
+        return thisYearsChildren.size() > 0; // a 'false' breaks the while-loop in App.java
     }
 
     private void printResults(List<Child> thisYearsChildren){ 

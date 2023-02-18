@@ -2,7 +2,7 @@ package com.harmptor;
 
 public class Boy extends Child {
 
-    public Boy(){
+    Boy(){
         super("male");
     }
 }

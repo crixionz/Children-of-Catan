@@ -12,7 +12,7 @@ public class Couple {
     private List<Child> children;
     private boolean breedable;
 
-    public Couple(){
+    Couple(){
         numberOfCouples++;
         numberOfBreedableCouples++;
         coupleID = numberOfCouples;
@@ -31,15 +31,15 @@ public class Couple {
             return null;
         }
         Child newchild;
-        if (coupleID <= numberOfBreedableCouples/2){
-            newchild = breed("male");
+        if (coupleID <= numberOfBreedableCouples/2){ // pesudo random. the idea here is that the first half of all eligible couples will have a boy, the second half will have a girl.
+            newchild = makeNewChild("male");
         } else {
-            newchild = breed("female");
+            newchild = makeNewChild("female");
         }
         return newchild;
-
     }
-    private Child breed(String sex){
+
+    private Child makeNewChild(String sex){
         final Child newchild = Child.create(sex);
         children.add(newchild);
         if (sex == "female" && breedable) { // && breedable is redundant but used as a safety precautionn
@@ -50,7 +50,6 @@ public class Couple {
             System.out.printf("Couple %3d had a %4s : (%d girls, %d boys)\n", coupleID, newchild.getGender(), getNumberofGirls(), getNumberofBoys());
         }
         return newchild;
-
     }
 
     public boolean isSubmissiveAndBreedable(){

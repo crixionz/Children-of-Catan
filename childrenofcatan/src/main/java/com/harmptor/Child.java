@@ -4,7 +4,7 @@ public abstract class Child {
     private final String sex;
 
     // Constructor, used by class Girl and Boy
-    public Child(String sex){
+    Child(String sex){
         this.sex = sex;
     }
     
@@ -17,6 +17,6 @@ public abstract class Child {
     }
 
     public String getGender(){
-        return (this.sex == "male") ? "Boy " : "Girl";
+        return (this.sex == "male") ? "Boy " : "Girl"; // whitespace for prettier formatting
     }
 }
