@@ -1,7 +1,7 @@
 package com.harmptor;
 
 public abstract class Child {
-    public final String sex;
+    private final String sex;
 
     // Constructor, used by class Girl and Boy
     public Child(String sex){
@@ -17,6 +17,6 @@ public abstract class Child {
     }
 
     public String getGender(){
-        return (this.sex == "male") ? "Boy" : "Girl";
+        return (this.sex == "male") ? "Boy " : "Girl";
     }
 }

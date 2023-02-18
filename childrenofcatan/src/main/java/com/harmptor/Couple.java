@@ -7,8 +7,8 @@ public class Couple {
 
     private static int numberOfCouples = 0;
     private static int numberOfBreedableCouples = 0;
-    public final int coupleID;
-    public List<Child> children;
+    private final int coupleID;
+    private List<Child> children;
     private boolean breedable;
 
     public Couple(){
@@ -33,14 +33,14 @@ public class Couple {
         }
 
     }
-    public void breed(String sex){
+    private void breed(String sex){
         final Child newchild = Child.create(sex);
         children.add(newchild);
-        if (sex == "female") {
+        if (sex == "female" && breedable) { // && breedable is redundant but used as a safety precautionn
             breedable = false;
             numberOfBreedableCouples -= 1;
         }
-        System.out.printf("Couple %3d made a  %4s   (%d girls, %d boys)\n", coupleID, newchild.getGender(), getNumberofGirls(), getNumberofBoys());
+        System.out.printf("Couple %3d had a %4s  (%d girls, %d boys)\n", coupleID, newchild.getGender(), getNumberofGirls(), getNumberofBoys());
 
     }
 

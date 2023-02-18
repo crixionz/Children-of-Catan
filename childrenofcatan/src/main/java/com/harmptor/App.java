@@ -8,9 +8,9 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        System.out.println( "\nOye cunt! Look at dese numbnuts fuckin their brains out for science" );
 
-        Kingdom catan = new Kingdom(1000);
+        Kingdom catan = new Kingdom(100);
         boolean breedable = true;
         while (breedable) {
             breedable = catan.breed();
